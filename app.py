@@ -12,6 +12,8 @@ app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + '/tmp/db.sqlite'
 db = SQLAlchemy(app)
 
+# To create the database, open a Python shell and run
+# >>> from app import db; db.create_all()
 
 class Mirror(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -44,7 +46,8 @@ class Scan(db.Model):
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    mirrors = Mirror.query.all()
+    return render_template('index.html', mirrors=mirrors)
 
 
 if __name__ == "__main__":
