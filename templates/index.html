@@ -5,5 +5,9 @@
     </head>
     <body>
         <p>We're currently monitoring {{ mirrors|length }} Tor mirrors.</p>
+        <form id="lookup" action="/lookup">
+            <input type="text" name="mirror_url" placeholder="Enter a mirror's URL to check it..."/>
+            <button type="submit">Look up</button>
+        </form>
     </body>
 </html>

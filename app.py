@@ -3,7 +3,7 @@
 from datetime import datetime
 
 # http://flask.pocoo.org/docs/
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 
 # http://pythonhosted.org/Flask-SQLAlchemy/
 from flask.ext.sqlalchemy import SQLAlchemy
@@ -42,6 +42,13 @@ class Scan(db.Model):
     def __repr__(self):
         return '<Scan (%s) %r>' % ('PASS' if self.passed else 'FAIL',
                                    self.time_started)
+
+
+@app.route('/lookup')
+def lookup():
+    mirror_url = request.args['mirror_url']
+    mirror = Mirror.query.filter_by(url=mirror_url).first_or_404()
+    return render_template('lookup.html', mirror=mirror)
 
 
 @app.route('/')
