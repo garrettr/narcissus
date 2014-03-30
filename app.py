@@ -3,7 +3,7 @@
 from datetime import datetime
 
 # http://flask.pocoo.org/docs/
-from flask import Flask
+from flask import Flask, render_template
 
 # http://pythonhosted.org/Flask-SQLAlchemy/
 from flask.ext.sqlalchemy import SQLAlchemy
@@ -40,6 +40,11 @@ class Scan(db.Model):
     def __repr__(self):
         return '<Scan (%s) %r>' % ('PASS' if self.passed else 'FAIL',
                                    self.time_started)
+
+
+@app.route('/')
+def index():
+    return render_template('index.html')
 
 
 if __name__ == "__main__":
